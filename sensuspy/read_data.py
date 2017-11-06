@@ -13,7 +13,7 @@ def read_json(data_path, is_directory = True, recursive = True, convert_to_local
 
     if is_directory:
         if recursive:
-            paths = [path for path in glob.glob(data_path + '*/**/*.json', recursive=True)]
+            paths = glob.glob(data_path + '*/**/*.json', recursive=True)
         else:
             paths = glob.glob(os.path.join(data_path,'*.json'))
 
@@ -136,7 +136,7 @@ def read_csv(data_path, is_directory = True, recursive = True):
 
     if is_directory:
         if recursive:
-            paths = [path for path in glob.glob(data_path + '*/**/*.csv', recursive=True)]
+            paths = glob.glob(data_path + '*/**/*.csv', recursive=True)
         else:
             paths = glob.glob(os.path.join(data_path,'*.csv'))
 
@@ -184,7 +184,7 @@ def read_pickle(data_path, is_directory = True, recursive = True):
 
     if is_directory:
         if recursive:
-            paths = [path for path in glob.glob(data_path + '*/**/*.p', recursive=True)]
+            paths = glob.glob(data_path + '*/**/*.p', recursive=True)
         else:
             paths = glob.glob(os.path.join(data_path,'*.p'))
         

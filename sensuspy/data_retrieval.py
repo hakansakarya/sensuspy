@@ -30,7 +30,7 @@ def sync_from_aws(s3_path, local_path, profile = "default", aws_client_path = "/
         
        
 def decompress_json(local_path):
-    paths = glob.glob(os.path.join(local_path,'*.gz'))
+    paths = glob.glob(data_path + '*/**/*.gz', recursive=True)
     
     if len(paths) == 0:
         print("No files no decompress.")

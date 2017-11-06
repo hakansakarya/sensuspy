@@ -287,9 +287,16 @@ def plot_datum_frequency_by_day(datum, save = False):
         else:
             frequencies[day] += 1
 
-    plt.figure(num=None, figsize=(12, 9), dpi=80, facecolor='w', edgecolor='k')
-    plt.plot(list(frequencies.keys()),list(frequencies.values()))
-    plt.title(str(datum_type) + "Frequency by Day (of year)")
+    plt.figure(figsize=(12, 9))
+
+    x = list(frequencies.keys())
+    y = list(frequencies.values())
+    plt.scatter(x,y)
+    
+    plt.ticklabel_format(useOffset=False)
+    plt.xticks(np.arange(min(x)-1,max(x)+2,1))
+    plt.yticks(np.arange(min(y)-1,max(y)+2,1))
+    plt.title(str(datum_type) + " frequency by Day (of year)")
     plt.xlabel("Study Day (of year)")
     plt.ylabel("Data Frequency")
 
@@ -301,13 +308,11 @@ def plot_datum_frequency_by_day(datum, save = False):
   
 
 
-def plot_datum_lag_cdf(datum_lags, unit_of_time = 'Second', save = False):
+def plot_datum_lag_cdf(datum_lags, save = False):
 
-    #lags = sensus_get_timestamp_lags(datum, unit_of_time = unit_of_time)
     x = np.sort(datum_lags)
     y = np.arange(1,len(x)+1) / len(x)
     plt.plot(x,y,marker='.',linestyle='none')
-    #plt.xlabel("Inter-reading times (" + unit_of_time + "s)")
     plt.xlabel("Inter-reading times")
     plt.ylabel('Percentile')
 

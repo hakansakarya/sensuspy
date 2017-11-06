@@ -74,41 +74,57 @@ def coordinates_to_addresses(data):
     #return address_dict
     return address_df
     
+    
+def drop_any_na_from_datum(datum):
+    datum_size = len(datum)
+    datum_type = datum['Type'][0]
+    dropped_datum = datum.dropna(axis=0, how='any')
+    dropped_datum_size = len(dropped_datum)
+    print(str(datum_size - dropped_datum_size) + "rows were dropped from " + datum_type + " where any value was NA.")
+    return dropped_datum
 
-#Drop rows where any value is missing
-def drop_na(data):
-    if type(data) == type({}):
-        dropped_data = {}
-        for datum in data:
-            dropped_data[datum] = data[datum].dropna(axis=0, how='any')
-        return dropped_data
-    else:
-        print("Invalid argument. This function only accepts a data dictionary as its argument.")
 
+def drop_any_na_from_data(data):
+    dropped_data = {}
+    for datum in data:
+        dropped_data[datum] = drop_any_na_from_datum(data[datum])
+    return dropped_data
+    
+
+def drop_na_columns_from_datum(datum):
+    datum_size = len(datum)
+    datum_type = datum['Type'][0]
+    dropped_datum = datum.dropna(axis=1, how='all')
+    dropped_datum_size = len(dropped_datum)
+    print(str(datum_size - dropped_datum_size) + " columns were dropped from " + datum_type + " where all values were NA.")
+    return dropped_datum
 
 #Drop columns where all the values are missing
-def drop_na_columns(data):
-    if type(data) == type({}):
-        dropped_data = {}
-        for datum in data:
-            dropped_data[datum] = data[datum].dropna(axis=1, how='all')
-        return dropped_data
-    else:
-        print("Invalid argument. This function only accepts a data dictionary as its argument.")
+def drop_na_columns_from_data(data):
+    dropped_data = {}
+    for datum in data:
+        dropped_data[datum] = drop_na_columns_from_data(data[datum])
+    return dropped_data
+
+
+def drop_na_rows_from_datum(datum):
+    datum_size = len(datum)
+    datum_type = datum['Type'][0]
+    dropped_datum = datum.dropna(axis=0, how='all')
+    dropped_datum_size = len(dropped_datum)
+    print(str(datum_size - dropped_datum_size) + " rows were dropped from " + datum_type + " where all values were NA.")
+    return dropped_datum
 
 
 #Drop rows where all the values are missing
-def drop_na_rows(data):
-    if type(data) == type({}):
-        dropped_data = {}
-        for datum in data:
-            dropped_data[datum] = data[datum].dropna(axis=0, how='all')
-        return dropped_data
-    else:
-        print("Invalid argument. This function only accepts a data dictionary as its argument.")
+def drop_na_rows_from_data(data):
+    dropped_data = {}
+    for datum in data:
+        dropped_data[datum] = drop_na_rows_from_datum(data[datum])
+    return dropped_data
 
 
-def drop_datum_duplicates(datum):
+def drop_duplicates_from_datum(datum):
     datum_size = len(datum)
     datum_type = datum['Type'][0]
     deduplicated_datum = datum.drop_duplicates()
@@ -117,24 +133,29 @@ def drop_datum_duplicates(datum):
     return deduplicated_datum
 
 
-def drop_data_duplicates(data):
-    if type(data) == type({}):
-        deduplicated_data = {}
-        for datum in data:
-            deduplicated_data[datum] = drop_datum_duplicates(data[datum])
-        return deduplicated_data
-    else:
-        print("Invalid argument. This function only accepts a data dictionary as its argument.")
+def drop_duplicates_from_data(data):
+    deduplicated_data = {}
+    for datum in data:
+        deduplicated_data[datum] = drop_datum_duplicates(data[datum])
+    return deduplicated_data
 
 
-def remove_device_id(data):
-    if type(data) == type({}):
-        for datum in data:
-            del data[datum]['DeviceId']
-    else:
-        print("Invalid argument. This function only accepts a data dictionary as its argument.")
+def drop_device_from_datum(datum, device_id):
+    datum_size = len(datum)
+    datum_type = datum['Type'][0]
+    reduced_datum = data[data.DeviceId != device_id]
+    reduced_datum_size = len(reduced_datum)
+    print(str(datum_size - reduced_datum) + " instances of device: " + str(device_id) + " were removed from " + str(datum_type))
+    return removed_datum
 
 
+def drop_device_from_data(data, device_id):
+    reduced_data = {}
+    for datum in data:
+        reduced_data[datum] = drop_device_from_datum(data[datum], device_id)
+    return removed_data
+    
+    
 def print_full_dataframe(df):
     pd.set_option('display.max_rows', len(df))
     print(df)

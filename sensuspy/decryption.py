@@ -11,7 +11,7 @@ def decrypt_bin_files(data_path, rsa_private_key_path, is_directory = True, recu
 
     if is_directory:
         if recursive:
-            bin_paths = [path for path in glob.glob(data_path + '*/**/*.bin', recursive=True)]
+            bin_paths = glob.glob(data_path + '*/**/*.bin', recursive=True)
         else:
             bin_paths = glob.glob(os.path.join(data_path,'*.bin'))
 
