@@ -1,8 +1,10 @@
 # sensuspy
-A Python package that provides utilities when working with data collected via the Sensus app
+A Python package that provides utilities when working with data collected via the Sensus app.
 
 ## Getting Started
+
 ###   Prerequisites
+sensuspy requires the AWS Command Line Interface to be installed in order to synchronise data from a S3 bucket. In order to install AWS CLI see http://docs.aws.amazon.com/cli/latest/userguide/installing.html
 
 ###   Installing
 The package was developed using python 3.5, however it should be compatible with any python 3.x. Testing on python 3.6 yielded no unexpected behavior, but using python 3.5 is advised for optimal behavior. Working with a virtual envrionment is also advised.
