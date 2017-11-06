@@ -8,7 +8,9 @@ from matplotlib.backends.backend_pdf import PdfPages
 
 
 def plot_accelerometer_datum(data, save = False, separate = False):
- 
+    """Plots accelerometer datum. If the separate option is picked X,Y and Z components of acceleration are plotted in
+    separate windows. Otherwise, the three components are displayed on the same window."""
+
     accelerometer_datum = data['AccelerometerDatum']
 
     if separate:
@@ -66,6 +68,7 @@ def plot_accelerometer_datum(data, save = False, separate = False):
 
 
 def plot_altitude_datum(data, save = False):
+    """Plots altitude datum."""
 
     altitude_datum = data['AltitudeDatum']
     plot(altitude_datum['Timestamp'],altitude_datum['Altitude'],"Time","Meters","Altitude Datum",save)
@@ -73,6 +76,7 @@ def plot_altitude_datum(data, save = False):
 
 
 def plot_battery_datum(data, save = False):
+    """Plots battery (percentage) datum."""
 
     battery_datum = data['BatteryDatum']
     plot(battery_datum['Timestamp'],battery_datum['Level'],"Time","Level(%)","Battery Datum",save)
@@ -80,6 +84,7 @@ def plot_battery_datum(data, save = False):
 
 
 def plot_celltower_datum(data, save = False):
+    """Plots celltower datum."""
 
     celltower_datum = data['CellTowerDatum']
 
@@ -111,6 +116,7 @@ def plot_celltower_datum(data, save = False):
 
 
 def plot_compass_datum(data, save = False):
+    """Plot compass datum."""
 
     compass_datum = data['CompassDatum']
     plot(compass_datum['Timestamp'],compass_datum['Heading'],"Time","Heading","Compass Datum",save)
@@ -118,6 +124,7 @@ def plot_compass_datum(data, save = False):
 
 
 def plot_light_datum(data, save = False):
+    """Plots light datum."""
 
     light_datum = data['LightDatum']
     plot(light_datum['Timestamp'],light_datum['Brightness'],"Time","Brightness Level","Light Datum",save)
@@ -125,6 +132,8 @@ def plot_light_datum(data, save = False):
 
 
 def plot_location_datum(data, mapname = None, plot_type = "scatter"):
+    """Produces an html file that is a google maps instance with the data points plotted on the map with the chosen option.
+    Plotting options are: default, heatmap, scatter, circle."""
 
     location_datum = data['LocationDatum']
 
@@ -159,6 +168,7 @@ def plot_location_datum(data, mapname = None, plot_type = "scatter"):
 
     
 def plot_screen_datum(data, save = False):
+    """Plots screen datum."""
 
     screen_datum = data['ScreenDatum']
     plot(screen_datum['Timestamp'],screen_datum['On'],"Time","On/Off","Screen Datum",save)
@@ -166,6 +176,7 @@ def plot_screen_datum(data, save = False):
 
 
 def plot_sound_datum(data, save = False):
+    """Plots sound datum."""
 
     sound_datum = data['SoundDatum']
     plot(sound_datum['Timestamp'],sound_datum['Decibels'],"Time","Decibels","Sound Datum",save)
@@ -173,6 +184,7 @@ def plot_sound_datum(data, save = False):
 
 
 def plot_speed_datum(data, save = False):
+    """Plots speed datum."""
 
     speed_datum = data['SpeedDatum']
     plot(speed_datum['Timestamp'],speed_datum['KPH'],"Time","KPH","Speed Datum",save)
@@ -180,6 +192,7 @@ def plot_speed_datum(data, save = False):
 
 
 def plot_telephony_datum(data, save = False):
+    """Plots telephony datum."""
 
     telephony_datum = data['TelephonyDatum']
     
@@ -225,6 +238,7 @@ def plot_telephony_datum(data, save = False):
 
 
 def plot_wlan_datum(data, save = False):
+    """Plots wlan datum."""
 
     wlan_datum = data['WlanDatum']
     
@@ -256,6 +270,7 @@ def plot_wlan_datum(data, save = False):
 
 
 def plot_datum_lags(datum_lags, bins = 10, save = False):
+    """Plots a histogram of the provided datum lags. Number of bins can be specified."""
 
     datum_lags.hist(grid=False,bins=bins)
     
@@ -277,6 +292,7 @@ def plot_datum_lags(datum_lags, bins = 10, save = False):
 
 
 def plot_datum_frequency_by_day(datum, save = False):
+    """Plots a scatter plot of data collection frequency by day."""
 
     datum_type = datum['Type'][0]
     frequencies = {}
@@ -309,6 +325,7 @@ def plot_datum_frequency_by_day(datum, save = False):
 
 
 def plot_datum_lag_cdf(datum_lags, save = False):
+    """Plots the cumulative distribution function of the provided datum lags."""
 
     x = np.sort(datum_lags)
     y = np.arange(1,len(x)+1) / len(x)
@@ -324,6 +341,7 @@ def plot_datum_lag_cdf(datum_lags, save = False):
 
 
 def plot(x, y, xlabel, ylabel, title, save_plot):
+    """Simple plotting function that returns a matplotlib figure. Used in the plotting functions above."""
 
     fig, ax = plt.subplots(figsize=(12,9), dpi=80, facecolor='w', edgecolor='k')
     fig.autofmt_xdate()

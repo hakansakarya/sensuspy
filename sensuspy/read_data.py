@@ -5,9 +5,10 @@ import pandas as pd
 from tzlocal import get_localzone
 from datetime import datetime
 
-#Reads in JSON-formatted Sensus data and returns a dictionary that has its keys as the data types and 
-# its values as pandas dataframes for that specific data type
+
 def read_json(data_path, is_directory = True, recursive = True, convert_to_local_timezone = True):
+    """Reads JSON-formatted Sensus data and returns a dictionary that has its keys as the data types 
+    and its values as pandas dataframes."""
 
     local_timezone = get_localzone()
 
@@ -47,7 +48,6 @@ def read_json(data_path, is_directory = True, recursive = True, convert_to_local
             if os.path.getsize(path) == 0:
                 continue
 
-            #json.load returns a list that contains dictionaries as items --> each row is a dictionary
             with open(path) as file:
                 json_file = json.load(file)
 
@@ -84,12 +84,12 @@ def read_json(data_path, is_directory = True, recursive = True, convert_to_local
         return None
 
     else:
-        #TIMESTAMP OPERATIONS
-     
+        
         #Timestamp formats
         format_with_microseconds = "%Y-%m-%dT%H%M%S.%f%z"
         format_without_microseconds = "%Y-%m-%dT%H%M%S%z"
 
+        #TIMESTAMP OPERATIONS
         for datum in data:
                     
             try:
@@ -115,10 +115,9 @@ def read_json(data_path, is_directory = True, recursive = True, convert_to_local
                 data[datum]['DayOfYear'] = list(map(lambda ts: ts.timetuple().tm_yday,timestamps))
 
                 #sort each df by timestamp
-                #reset indices
                 data[datum] = data[datum].sort_values(by='Timestamp')
-                data[datum] = data[datum].reset_index()
-                data[datum].drop('index',axis=1, inplace=True)
+                data[datum] = data[datum].reset_index() #reset indices
+                data[datum].drop('index',axis=1, inplace=True)     
                 del data[datum]["$type"]
 
                 #remove columns that contain list or dict objects
@@ -133,6 +132,8 @@ def read_json(data_path, is_directory = True, recursive = True, convert_to_local
 
 
 def read_csv(data_path, is_directory = True, recursive = True):
+    """Reads csv files, where each csv file is associated with a data type, and creates a data dictionary
+    that has its keys as the data types and its values as pandas dataframes."""
 
     if is_directory:
         if recursive:
@@ -179,8 +180,9 @@ def read_csv(data_path, is_directory = True, recursive = True):
 
 
 
-#create the same data structure as sensus_read_json by reading dataframes from pickle files
 def read_pickle(data_path, is_directory = True, recursive = True):
+    """Reads pickle files, where each pickle file is associated with a data type, and creates a data dictionary
+    that has its keys as the data types and its values as pandas dataframes."""
 
     if is_directory:
         if recursive:

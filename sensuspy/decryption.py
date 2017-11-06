@@ -6,9 +6,10 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
-#Decrypts Sensus .bin files that were encrypted using asymmetric encryption
 def decrypt_bin_files(data_path, rsa_private_key_path, is_directory = True, recursive = True, replace_files = True, rsa_private_key_password = None):
-
+    """Decrypts .bin files that are encrypted using asymmetric encryption where the session key is encrypted using rsa encryption.
+    If data was encrypted following the protocol on the Sensus github page then the user should have a private key generated."""
+    
     if is_directory:
         if recursive:
             bin_paths = glob.glob(data_path + '*/**/*.bin', recursive=True)
@@ -39,8 +40,7 @@ def decrypt_bin_files(data_path, rsa_private_key_path, is_directory = True, recu
         print("Decrypting " + str(len(bin_paths)) + " file(s)...")
 
         file_number = 0
-
-        #enc_tuples = []
+        
         index = 0
         for bin_path in bin_paths:
 
@@ -94,7 +94,8 @@ def decrypt_bin_files(data_path, rsa_private_key_path, is_directory = True, recu
 
 
 def load_rsa_key(rsa_key_path, rsa_key_password=None):
-
+    """Returns a private key object used in rsa decryption."""
+    
     if rsa_key_password == None:
         rsa_key_password = input("Enter rsa key password: ")
 

@@ -6,10 +6,10 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import AES
 from Crypto.Cipher import PKCS1_v1_5
 
-#Synchronizes data from Amazon S3 to a local path using the AWS client - AWS client needs to be installed
-#AWS client path can be found by running "which aws" on the command line
-def sync_from_aws(s3_path, local_path, profile = "default", aws_client_path = "/usr/local/bin/aws", delete = False, decompress = True):
-   
+
+def sync_from_aws(s3_path, local_path, profile = "default", aws_client_path = "/usr/local/bin/aws", delete = False, decompress_files = True):
+   """Synchronizes data from Amazon S3 to a local path using the AWS client - AWS client needs to be installed"""
+
     aws_args = "s3 --profile " + profile + " sync " + s3_path + " " + local_path
 
     if delete:
@@ -22,14 +22,16 @@ def sync_from_aws(s3_path, local_path, profile = "default", aws_client_path = "/
 
     try:
         os.system(invoke_command)
-        if decompress:
-            decompress_json(local_path)
+        if decompress_files:
+            decompress(local_path)
 
     except Exception as e:
         print(e)
         
        
-def decompress_json(local_path):
+def decompress(local_path):
+    """Decompresses .gz files downloaded from Amazon S3"""
+    
     paths = glob.glob(data_path + '*/**/*.gz', recursive=True)
     
     if len(paths) == 0:
