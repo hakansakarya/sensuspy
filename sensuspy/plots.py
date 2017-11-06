@@ -1,3 +1,6 @@
+__author__ = "Sait Hakan Sakarya"
+__email__ = "shs5fh@virginia.edu"
+
 import math
 import gmplot
 import math

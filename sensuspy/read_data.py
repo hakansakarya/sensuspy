@@ -1,3 +1,6 @@
+__author__ = "Sait Hakan Sakarya"
+__email__ = "shs5fh@virginia.edu"
+
 import os
 import json
 import glob
