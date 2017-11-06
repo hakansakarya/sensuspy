@@ -11,7 +11,7 @@ from Crypto.Cipher import PKCS1_v1_5
 
 
 def sync_from_aws(s3_path, local_path, profile = "default", aws_client_path = "/usr/local/bin/aws", delete = False, decompress_files = True):
-   """Synchronizes data from Amazon S3 to a local path using the AWS client - AWS client needs to be installed"""
+    """Synchronizes data from Amazon S3 to a local path using the AWS client - AWS client needs to be installed"""
 
     aws_args = "s3 --profile " + profile + " sync " + s3_path + " " + local_path
 
