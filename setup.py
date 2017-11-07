@@ -7,5 +7,5 @@ setup(
    author='Sait Hakan Sakarya',
    author_email='shs5fh@virginia.edu',
    packages=['sensuspy'],
-   install_requires=['geopy', 'gmplot', 'matplotlib', 'numpy', 'tzlocal', 'pandas', 'pycrypto'], #external packages as dependencies
+   install_requires=['geopy', 'gmplot', 'matplotlib', 'numpy', 'tzlocal', 'pandas', 'cryptography'], #external packages as dependencies
 )
