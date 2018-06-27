@@ -5,9 +5,6 @@ import os
 import glob
 import gzip
 import struct
-from Crypto.PublicKey import RSA
-from Crypto.Cipher import AES
-from Crypto.Cipher import PKCS1_v1_5
 
 
 def sync_from_aws(s3_path, local_path, profile = "default", aws_client_path = "/usr/local/bin/aws", delete = False, decompress_files = True):
