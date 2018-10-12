@@ -1,5 +1,5 @@
 certifi==2017.7.27.1
-cryptography==2.2.2
+cryptography==2.3
 geopy==1.11.0
 gmplot==1.1.1
 matplotlib==2.0.2
