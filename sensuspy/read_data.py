@@ -79,7 +79,7 @@ def read_json(data_path, is_directory = True, recursive = True, convert_to_local
                 data[datum_type] = data[datum_type].append(json_data)
 
         except Exception as Error:
-            print(e)
+            print(Error)
                     
 
     if len(data) == 0:
